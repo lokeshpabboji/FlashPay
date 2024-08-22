@@ -9,7 +9,7 @@
   ],
   "exports": {
     "./styles.css": "./dist/index.css",
-    "./Button": "./src/Button.tsx"
+    "./AppBar" : "./src/AppBar.tsx"
   },
   "license": "MIT",
   "scripts": {

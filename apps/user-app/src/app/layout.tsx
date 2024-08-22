@@ -1,4 +1,5 @@
 import "./globals.css";
+import "@repo/ui/styles.css"
 import { Providers } from "./Provider";
 
 export default function RootLayout({ children }: {

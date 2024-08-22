@@ -9,7 +9,7 @@ interface AppbarProps {
     onSignout: any
 }
 
-export const Appbar = ({
+export const AppBar = ({
     user,
     onSignin,
     onSignout
