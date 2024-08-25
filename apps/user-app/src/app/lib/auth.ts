@@ -61,5 +61,11 @@ export const authOptions = {
 
             return session
         }
+    },
+    pages: {
+        signIn: '/signin',  // Custom sign-in page
+        signOut: '/auth/signout',
+        error: '/auth/error',
+        verifyRequest: '/auth/verify-request',
     }
 }

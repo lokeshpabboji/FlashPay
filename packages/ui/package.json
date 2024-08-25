@@ -9,7 +9,12 @@
   ],
   "exports": {
     "./styles.css": "./dist/index.css",
-    "./AppBar" : "./src/AppBar.tsx"
+    "./AppBar" : "./src/AppBar.tsx",
+    "./Button" : "./src/Button.tsx",
+    "./Card" : "./src/Card.tsx",
+    "./Center" : "./src/Center.tsx",
+    "./Select" : "./src/Select.tsx",
+    "./TextInput" : "./src/TextInput.tsx"
   },
   "license": "MIT",
   "scripts": {
