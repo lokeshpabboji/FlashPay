@@ -26,25 +26,32 @@ export const authOptions = {
                         return {
                             id: existingUser.id.toString(),
                             name: existingUser.name,
-                            email: existingUser.number
+                            number: existingUser.number
                         }
                     }
                     return null;
                 }
     
                 try {
-                    const user = await prisma.user.create({
-                        data: {
-                            number: credentials.phone,
-                            password: hashedPassword,
+                    await prisma.$transaction(async (tx) => {
+                        const user = await prisma.user.create({
+                            data: {
+                                number: credentials.phone,
+                                password: hashedPassword,
+                            }
+                        });
+                        await prisma.balance.create({
+                            data : {
+                                userId : user.id,
+                            }
+                        })
+                        return {
+                            id: user.id.toString(),
+                            name: user.name,
+                            number: user.number
                         }
-                    });
-                
-                    return {
-                        id: user.id.toString(),
-                        name: user.name,
-                        email: user.number
-                    }
+                    })
+                    
                 } catch(e) {
                     console.error(e);
                 }
@@ -58,7 +65,6 @@ export const authOptions = {
         // TODO: can u fix the type here? Using any is bad
         async session({ token, session }: any) {
             session.user.id = token.sub
-
             return session
         }
     },

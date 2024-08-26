@@ -3,12 +3,12 @@ import "@repo/ui/styles.css"
 import type { Metadata } from "next";
 import { Inter } from "next/font/google"
 import { Providers } from "./Provider";
-import { AppbarClient } from "./AppbarClient";
+import { AppbarClient } from "./components/AppbarClient";
 
 const inter = Inter({subsets : ["latin"]})
 
 export const metadata : Metadata = {
-  title : "Wallet",
+  title : "FlashPay",
   description : "simple wallet app"
 }
 

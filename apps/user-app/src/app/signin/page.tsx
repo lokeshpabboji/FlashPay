@@ -41,7 +41,7 @@ export default function Signin() {
             <Center className="">
                 <Card title="Signin" className="w-96">
                     <div className="text-3xl text-center font-sans font-extrabold text-blue-400">
-                        PayEase
+                        FlashPay
                     </div>
                     <TextInput type="text" placeholder="phone" label="Phone Number" onChange={(value) => {
                         setPhone(value)

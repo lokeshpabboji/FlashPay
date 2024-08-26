@@ -4,11 +4,11 @@ import { authOptions } from "./lib/auth";
 
 export default async function Page(){
   const session = await getServerSession(authOptions);
+  console.log("form main page.tsx")
+  console.log(session)
   if (session?.user) {
-    console.log('from if in main page')
     redirect('/dashboard')
   } else {
-    console.log('from else in main page')
     redirect('/signin')
   }
 }

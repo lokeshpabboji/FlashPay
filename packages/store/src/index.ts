@@ -1,5 +1,6 @@
-import { useBalance } from "./hooks/useBalance";
-
+import { useAmount } from "./hooks/useBalance";
+import { useUrl } from "./hooks/useUrl" 
 export {
-    useBalance
+    useAmount,
+    useUrl
 }
