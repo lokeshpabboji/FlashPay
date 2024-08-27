@@ -9,10 +9,12 @@ import { useRouter } from "next/navigation"
 export function AppbarClient() {
     const session = useSession()
     const router = useRouter();
+    if(!session.data){
+        router.push('/signin')
+    }
     return (
         <AppBar user={session.data?.user} onSignin={signIn} onSignout={async () => {
-            await signOut()
-            router.push('/signin')
+            await signOut({callbackUrl : '/signin'})
         }}></AppBar>
     )
 }

@@ -4,6 +4,9 @@ import { BalanceCard } from "../../components/BalanceCard";
 import { OnRampTransactions } from "../../components/OnRampTransactions";
 import { authOptions } from "../../lib/auth";
 import prisma from "@repo/db/client";
+import { Center } from "@repo/ui/Center";
+import { Card } from "@repo/ui/Card";
+import { TextInput } from "@repo/ui/TextInput";
 
 export default async function() {
     const balance = await getBalance();
