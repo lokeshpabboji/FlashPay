@@ -16,3 +16,22 @@ export async function passwordVerification(password : string, userId :number) : 
         return false;
     }
 }
+
+export async function createOnRampTxn({userId, provider, amount, startTime, token} : {
+    userId : number,
+    provider : string,
+    amount : number,
+    startTime : string,
+    token : string
+}){
+    await prisma.onRampTransaction.create({
+        data : {
+            userId,
+            provider,
+            status : "Processing", 
+            amount,
+            startTime,
+            token
+        }
+    });
+}

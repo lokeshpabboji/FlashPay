@@ -9,6 +9,7 @@ export async function getOnRampTransactions() {
             userId : Number(session?.user?.id)
         }
     });
+    txns.reverse()
     return txns.map(t => ({
         time : t.startTime,
         amount : t.amount,

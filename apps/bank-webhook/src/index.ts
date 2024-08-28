@@ -15,17 +15,9 @@ app.get("/", (req, res) => {
 
 app.post("/hdfcwebhook",async (req, res) => {
     // Add zod validation here
-    const paymentInfo : {
-        token : string,
-        userId : string,
-        amount : string,
-    } = {
-        token : req.body.token,
-        userId : req.body.user_id,
-        amount : req.body.amount
-    }
-    console.log("in hdfcwebhook", paymentInfo.amount, paymentInfo.token, paymentInfo.userId);
-    if(paymentInfo.token !== 'webhookToken'){
+    const token : string = req.body.token
+    console.log("in hdfcwebhook", token);
+    if(!token){
         return res.status(411).json({
             message : "unAuthorized"
         })
@@ -34,31 +26,41 @@ app.post("/hdfcwebhook",async (req, res) => {
     // update the balance in db, add txn
     try {
         console.log("in try block");
-        await prisma.$transaction([
-            prisma.balance.update({
+        await prisma.$transaction(async (tx) => {
+            const onRampTxn = tx.onRampTransaction.update({
                 where : {
-                    userId : Number(paymentInfo.userId),
+                    token : token
+                },
+                data : {
+                    status : "Success"
+                }
+            });
+            console.log((await onRampTxn).amount)
+            console.log((await onRampTxn).userId)
+            await tx.balance.update({
+                where : {
+                    userId : (await onRampTxn).userId,
                 },
                 data : {
                     amount : {
-                        increment : Number(paymentInfo.amount)
+                        increment : (await onRampTxn).amount
                     }
                 }
-            }),
-            // prisma.onRampTransaction.update({
-            //     where : {
-            //         token : paymentInfo.token
-            //     },
-            //     data : {
-            //         status : "Success"
-            //     }
-            // }),
-        ])
-        return res.json({
-            message : "Captured"
+            });
+            return res.json({
+                message : "Captured"
+            })
         })
     } catch (error) {
         console.error(error);
+        prisma.onRampTransaction.update({
+            where : {
+                token : token
+            },
+            data : {
+                status : "Failure"
+            }
+        });
         return res.status(411).json({
             message : "Error while processing webhook"
         })

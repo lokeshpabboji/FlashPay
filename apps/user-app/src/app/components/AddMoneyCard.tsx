@@ -4,7 +4,8 @@ import { useSession } from "next-auth/react";
 import axios from "axios";
 import { useAmount, useIsButtonClicked, useUrl } from "@repo/store"
 import { useState } from "react";
-import { passwordVerification } from "../lib/passwordAction";
+import { createOnRampTxn, passwordVerification } from "../lib/Actions";
+import prisma from "@repo/db/client";
 
 const SUPPORTED_BANKS = [{
     name : "HDFC Bank",
@@ -15,7 +16,7 @@ const SUPPORTED_BANKS = [{
 }];
 
 export const AddMoney = () => {
-    const [redirectUrl, setRedirectedUrl] = useUrl();
+    const [bankName, setBankName] = useUrl();
     const [amount, setAmount] = useAmount();
     const session = useSession();
     const [password, setPassword] = useState("")
@@ -31,13 +32,23 @@ export const AddMoney = () => {
                 <Button className="mt-4" onClick={async () => {
                     // setIsButtonClicked(value => !value)
                     // @ts-ignore
-                    const passwordValidation = await passwordVerification(password, Number(session.data?.user?.id))
+                    const userId = Number(session.data?.user?.id);
+                    const passwordValidation = await passwordVerification(password, userId)
+                    setPassword('')
                     if(passwordValidation){
+                        const token = (Math.random() * 1000).toString();
+                        const startTime = (new Date).toISOString();
+                        const data = {
+                            userId,
+                            provider : bankName,
+                            status : "Processing",
+                            amount : (amount*100),
+                            startTime ,
+                            token ,
+                        }
+                        await createOnRampTxn(data)
                         axios.post("http://localhost:3003/hdfcwebhook", {
-                            amount,
-                            // @ts-ignore
-                            user_id : session.data?.user?.id,
-                            token : 'webhookToken'
+                            token
                         }).then(response => {
                             console.log("in response block");
                             const statusCode = response.status
@@ -54,6 +65,7 @@ export const AddMoney = () => {
                             console.error('Error:', error);
                         }).finally(() => {
                             setIsButtonClicked(value => !value)
+                            setAmount((amount) => amount-amount)
                         })
                     }else {
                         alert('request failed! try again in some time 2')
@@ -62,14 +74,14 @@ export const AddMoney = () => {
             </Card>
             <Card className={`${isButtonClicked ? "hidden":"visible"}`} title="Add Money">
                 <div className="w-full">
-                    <TextInput type="number" label="Amount" placeholder="Amount" onChange={(amount) => {
+                    <TextInput value={amount} type="number" label="Amount" placeholder="Amount" onChange={(amount) => {
                         setAmount(Number(amount))
                     }} />
                     <div className="py-4 text-left">
                         Bank
                     </div>
                     <Select onSelect={(value) => {
-                        setRedirectedUrl(SUPPORTED_BANKS.find(x => x.name === value)?.redirectUrl || '')
+                        setBankName(SUPPORTED_BANKS.find(x => x.name === value)?.name || '')
                     }} options={SUPPORTED_BANKS.map(x => ({
                         key : x.name,
                         value: x.name
@@ -94,3 +106,4 @@ export const AddMoney = () => {
         </>
     )
 }
+

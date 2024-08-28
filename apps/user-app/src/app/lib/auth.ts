@@ -34,13 +34,13 @@ export const authOptions = {
     
                 try {
                     await prisma.$transaction(async (tx) => {
-                        const user = await prisma.user.create({
+                        const user = await tx.user.create({
                             data: {
                                 number: credentials.phone,
                                 password: hashedPassword,
                             }
                         });
-                        await prisma.balance.create({
+                        await tx.balance.create({
                             data : {
                                 userId : user.id,
                             }
