@@ -1,9 +1,6 @@
 'use client'
 
-import { Button } from "@repo/ui/Button";
-import { Card } from "@repo/ui/Card";
-import { Center } from "@repo/ui/Center";
-import { TextInput } from "@repo/ui/TextInput";
+import { Button, Card, Center, TextInput } from "@repo/ui";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -50,7 +47,7 @@ export default function Signin() {
                         setPassword(value)
                     }}></TextInput>
                     <div className="pt-4">
-                        <Button onClick={() => handleSignin('Credentials')}>Signin</Button>
+                        <Button className="" onClick={() => handleSignin('Credentials')}>Signin</Button>
                     </div>
                 </Card>
             </Center>

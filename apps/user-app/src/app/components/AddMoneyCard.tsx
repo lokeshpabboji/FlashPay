@@ -1,13 +1,8 @@
 'use client'
-import { Button } from "@repo/ui/Button";
-import { Card } from "@repo/ui/Card";
-import { Select } from "@repo/ui/Select";
-import { TextInput } from "@repo/ui/TextInput";
+import { Button, Card, Select, TextInput } from "@repo/ui";
 import { useSession } from "next-auth/react";
 import axios from "axios";
 import { useAmount, useIsButtonClicked, useUrl } from "@repo/store"
-import prisma from "@repo/db/client";
-import bcrypt  from "bcrypt"
 import { useState } from "react";
 import { passwordVerification } from "../lib/passwordAction";
 

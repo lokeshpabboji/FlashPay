@@ -1,3 +1,4 @@
+'use client'
 import { Button } from "./Button"
 import { useRouter } from "next/navigation";
 
@@ -31,7 +32,7 @@ export const AppBar = ({
                 </div>
             </div>
             <div className="flex flex-col justify-center pt-2">
-                <Button className="" onClick={user ? onSignout : onSignin}>{user ? "Logout" : "Login"}</Button>
+                <Button className="mb-2" onClick={user ? onSignout : onSignin}>{user ? "Logout" : "Login"}</Button>
             </div>
         </div>
     )

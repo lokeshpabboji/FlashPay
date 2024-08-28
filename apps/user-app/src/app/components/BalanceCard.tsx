@@ -1,4 +1,4 @@
-import { Card } from "@repo/ui/Card"
+import { Card } from "@repo/ui"
 
 export const BalanceCard = ({amount, locked} : {
     amount : number,
