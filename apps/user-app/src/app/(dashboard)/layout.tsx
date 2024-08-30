@@ -1,6 +1,5 @@
 import { ReactNode } from "react";
-import SidebarItem from "../components/SidebarItem";
-import { AppbarClient } from "../components/AppbarClient";
+import { AppbarClient, SidebarItem } from "../components";
 
 
 export default function Layout({ children } : {children : ReactNode}) : JSX.Element{
@@ -9,13 +8,11 @@ export default function Layout({ children } : {children : ReactNode}) : JSX.Elem
             <AppbarClient></AppbarClient>
             <div className="flex">
                 <div className="w-52 border-r border-slate-300 min-h-screen ml-6 pt-10">
-                    <div>
-                        <SidebarItem href={"/dashboard"} icon={<HomeIcon />} title="Home" />
-                        <SidebarItem href={"/transfer"} icon={<TransferIcon />} title="Transfer" />
-                        <SidebarItem href={"/transactions"} icon={<TransactionsIcon />} title="Transactions" />
-                        <SidebarItem href={"/profile"} icon={<ProfileIcon />} title="Profile" />
-                        <SidebarItem href={"/P2PTransfer"} icon={<P2PTransfer />} title="P2P Transfer" />
-                    </div>
+                    <SidebarItem href={"/dashboard"} icon={<HomeIcon />} title="Home" />
+                    <SidebarItem href={"/transfer"} icon={<TransferIcon />} title="Transfer" />
+                    <SidebarItem href={"/transactions"} icon={<TransactionsIcon />} title="Transactions" />
+                    <SidebarItem href={"/profile"} icon={<ProfileIcon />} title="Profile" />
+                    <SidebarItem href={"/P2PTransfer"} icon={<P2PTransfer />} title="P2P Transfer" />
                 </div>
                 {children}
             </div>

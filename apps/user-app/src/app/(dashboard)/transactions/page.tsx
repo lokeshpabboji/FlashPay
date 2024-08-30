@@ -1,4 +1,4 @@
-import { OnRampTransactions } from "../../components/OnRampTransactions";
+import { OnRampTransactions } from "../../components";
 import { getOnRampTransactions } from "../../lib/getOnRampTransactions";
 
 export default async function() {

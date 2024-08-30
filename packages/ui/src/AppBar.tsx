@@ -18,7 +18,7 @@ export const AppBar = ({
 }: AppbarProps) : JSX.Element => {
     const router = useRouter()
     return (
-        <div className="flex justify-between border-b px-4 ">
+        <div className="sticky top-0 backdrop-blur-md flex justify-between border-b px-4 ">
             <div className="flex justify-between">
                 <div className="flex flex-col justify-center pr-3">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
