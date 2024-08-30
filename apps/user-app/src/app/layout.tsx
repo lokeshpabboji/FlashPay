@@ -3,7 +3,9 @@ import "@repo/ui/styles.css"
 import type { Metadata } from "next";
 import { Inter } from "next/font/google"
 import { Providers } from "./Provider";
-import { AppbarClient } from "./components/AppbarClient";
+import { getServerSession } from "next-auth";
+import { authOptions } from "./lib/auth";
+import { redirect } from "next/navigation";
 
 const inter = Inter({subsets : ["latin"]})
 
@@ -12,14 +14,19 @@ export const metadata : Metadata = {
   description : "simple wallet app"
 }
 
-export default function RootLayout({ children }: {
+export default async function RootLayout({ children }: {
   children: React.ReactNode;
-}): JSX.Element {
+}): Promise<JSX.Element> {
+  
+  const session = await getServerSession(authOptions);
+  if (!session?.user) {
+    redirect("/signin");
+  }
+
   return (
     <html lang="en">
       <Providers>
         <body className={`bg-stone-100 ${inter.className}`}>
-          <AppbarClient />
           { children }
         </body>
       </Providers>

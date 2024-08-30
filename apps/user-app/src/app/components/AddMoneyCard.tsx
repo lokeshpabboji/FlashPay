@@ -5,7 +5,6 @@ import axios from "axios";
 import { useAmount, useIsButtonClicked, useUrl } from "@repo/store"
 import { useState } from "react";
 import { createOnRampTxn, passwordVerification } from "../lib/Actions";
-import prisma from "@repo/db/client";
 
 const SUPPORTED_BANKS = [{
     name : "HDFC Bank",
