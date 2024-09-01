@@ -9,19 +9,15 @@ export default async function() {
     const transactions = await getOnRampTransactions();
 
     return (
-        <div className="w-screen">
+        <div className="w-full">
             <div className="text-4xl py-3 px-6 text-indigo-700">
                 Transfer
             </div>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2 p-4">
-                <div>
-                    <AddMoney></AddMoney>
-                </div>
+                <AddMoney></AddMoney>
                 <div>
                     <BalanceCard amount={balance.amount} locked={balance.locked}/>
-                    <div className="pt-4">
-                        <OnRampTransactions transactions={transactions} />
-                    </div>
+                    <OnRampTransactions transactions={transactions} />
                 </div>
             </div>
         </div>

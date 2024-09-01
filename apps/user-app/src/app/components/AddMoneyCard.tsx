@@ -22,7 +22,7 @@ export const AddMoney = () => {
     const [isButtonClicked, setIsButtonClicked] = useIsButtonClicked()
     return (
         <>
-            <Card className={`${isButtonClicked ? "visible":"hidden"} w-full`} title="password">
+            <Card className={`${isButtonClicked ? "visible":"hidden"} h-fit`} title="password">
                 <div className="text-center text-sm">Enter your password to Add Money to your wallet</div>
                 <TextInput label="Password" type="password" placeholder="******" onChange={(value) => {
                     console.log(value);
@@ -71,8 +71,8 @@ export const AddMoney = () => {
                     }
                 }}>Verify and Add</Button>
             </Card>
-            <Card className={`${isButtonClicked ? "hidden":"visible"}`} title="Add Money">
-                <div className="w-full">
+            <Card className={`${isButtonClicked ? "hidden":"visible"} h-fit`} title="Add Money">
+                {/* <div className="w-full"> */}
                     <TextInput value={amount} type="number" label="Amount" placeholder="Amount" onChange={(amount) => {
                         setAmount(Number(amount))
                     }} />
@@ -100,7 +100,7 @@ export const AddMoney = () => {
                         // @ts-ignore
                         // console.log(session.data?.user?.id)
                     }}>Add Money</Button>
-                </div>
+                {/* </div> */}
             </Card>
         </>
     )

@@ -4,17 +4,19 @@ import { AppbarClient, SidebarItem } from "../components";
 
 export default function Layout({ children } : {children : ReactNode}) : JSX.Element{
     return (
-        <div>
+        <div className="flex flex-col h-screen">
             <AppbarClient></AppbarClient>
-            <div className="flex">
-                <div className="w-52 border-r border-slate-300 min-h-screen ml-6 pt-10">
+            <div className="flex h-full">
+                <aside className="w-auto border-r overflow-y-auto border-slate-300 px-7 pt-10">
                     <SidebarItem href={"/dashboard"} icon={<HomeIcon />} title="Home" />
                     <SidebarItem href={"/transfer"} icon={<TransferIcon />} title="Transfer" />
                     <SidebarItem href={"/transactions"} icon={<TransactionsIcon />} title="Transactions" />
                     <SidebarItem href={"/profile"} icon={<ProfileIcon />} title="Profile" />
                     <SidebarItem href={"/P2PTransfer"} icon={<P2PTransfer />} title="P2P Transfer" />
-                </div>
-                {children}
+                </aside>
+                <main className="flex-1 overflow-y-auto">
+                    {children}
+                </main>
             </div>
         </div>
     )
